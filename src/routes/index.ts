@@ -5,7 +5,7 @@ import { Request, Response, Router } from 'express';
 
 const router: Router = express.Router();
 router.get('/', (req: Request, res: Response) => {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Safe%Home' });
 });
 
 export default router;
