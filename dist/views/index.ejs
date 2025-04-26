@@ -3,17 +3,132 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/querys.css">
   </head>
   <body>
-    
-    <div class="box">
-      <h1><%= title %></h1>
-      <ul class="list">
-        <li>Datos personales</li>
-        <li>Nombre y apellido: Eliannibeth Padrino</li>
-        <li>C.I: 31.376.531</li>
-        <li>Seccion: 3</li>
-      </ul>
-    </div>
-  </body>
+    <header>
+        <nav>
+            <img src="images/logo.jpg" alt="logo">
+        </nav>
+        <nav>
+            <ul>  
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#ventajas">Nosotros</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <nav class="inicio" id="inicio">
+        <div class="text">
+            <h1>Bienvenido a Safe&Home</h1>
+            <p>La seguridad de tu hogar es nuestra prioridad.</p>
+            <button class="button">Contactanos ya!</button>
+        </div>
+        <video muted autoplay loop >
+            <source src="/images/securitycam.mp4">
+    </nav>
+
+    <main>
+        <section class="servicios1" id="servicios">
+            <h1>Servicios</h1>  
+            <div class="servicios2">
+                <div class="card" >
+                    <div>
+                        <img src="images/alarma1.png" alt="Alarmas">
+                        <p>Alarmas para accidentes, desastres naturales y robos.</p>
+                    </div>
+                </div>
+                <div class="card" >
+                    <div>
+                        <img src="images/alarma2.jpg" alt="Alarmas">
+                        <p>Camaras de seguridad con sensor de movimiento.</p>                        
+                    </div>
+                </div>
+                <div class="card" >
+                    <div>
+                        <img src="images/camara2.jpg" alt="Alarmas">
+                        <p>Instalacion del servicio deseado y mantenimiento anual.</p>
+                    </div>
+                </div>
+                <div class="card" >
+                    <div>
+                        <img src="images/camara.jpg" alt="Alarmas">
+                        <p>Instalación del equipo y software para vigilancia 24/7 desde tu telefono celular</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ventajas" id="ventajas">
+            <video muted autoplay loop >
+                <source src="images/hands.mp4">
+            </video>
+            <nav class="boxx">
+                
+                <div class="vent">
+                    
+                    <img src="images/cheque.png" alt="...">
+                    <p>nuestros servicios de seguridad garantiza tu proteccion y la de tu hogar, protegiendote de cualquier amenaza</p>
+                    
+                </div>
+                <div class="vent">
+                    <img src="images/24-horas.png" alt="...">
+                    <p>Trabajamos siempre dispuestos a cualquier peticion, dudas o emergencia en menos de 10 minutos</p>
+                
+                </div>
+                <div class="vent">
+                    <img src="images/precio.png" alt="...">
+                    <p>Ofrecemos precios inigualables, paquetes de servicios y rebajas que no encontraras en otra agencia</p>
+
+                </div>
+                                
+            </nav>
+
+            
+        </section>
+
+        <section class="testimonios" >
+            <p>Lo que nuestros clientes dicen sobre nosotros:</p>
+            <div class="testigos">
+                
+                <div class="blockquote">
+                    <img src="images/Ana garcia.jpg" alt="...">
+                    <p>"El servicio es excepcional. ¡Ya no tengo miedo de dejar mi casa sola" - Ana García</p>
+                    
+                </div>
+                <div class="blockquote">
+                    <img src="images/Juan Perez.jpg" alt="...">
+                    <p>"Gracias a Safe&Home, me siento seguro en mi hogar. ¡Recomendados!" - Juan Pérez</p>
+                    
+                </div>
+                <div class="blockquote">
+                    <img src="images/Maria Lopez.jpg" alt="...">
+                    <p>"El mejor servicio de seguridad que he tenido. Muy profesionales." - María López</p>
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="contacto" id="contacto">
+            <h1>Contacto</h1>
+            <p>Si tiene alguna pregunta o desea más información, no dude en contactarnos.</p>
+            <nav>
+                <a href="#"><div><img src="images/email.png" alt="..."> <h3>safe&home@gmail.com</h3></div></a>
+                <a href="#"><div><img src="images/telefono.png" alt="..."><h3>+58 0424-3068194</h3> </div></a>
+                <a href="#"><div><img src="images/ubicacion.png" alt="..."><h3>San Juan de los Morros, Guarico</h3></div></a>
+                <a href="https://www.facebook.com"><div><img src="images/fb.png" alt="..."><h3>Safe&Home</h3></div></a>
+                <a href="https://www.instagram.com"><div><img src="images/ig.png" alt="..."><h3>@Safe&Home_</h3></div></a>
+                <a href="https://www.tiktok.com"><div><img src="images/tiktok.png" alt="...">@Safe&Home_</div></a>
+            </nav>
+            
+        </section>
+    </main>
+
+    <footer>
+        <img src="images/logo.jpg" alt="logo">
+        <p>&copy; 2025 Safe&Home. Todos los derechos reservados.</p>
+    </footer>
+</body>
 </html>

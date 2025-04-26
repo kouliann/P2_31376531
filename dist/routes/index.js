@@ -6,6 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const router = express_1.default.Router();
 router.get('/', (req, res) => {
-    res.render('index', { title: 'Hola Mundo ^^' });
+    res.render('index', { title: 'Safe&Home' });
 });
 exports.default = router;
