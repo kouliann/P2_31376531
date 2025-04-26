@@ -1,6 +1,37 @@
+@media only screen and (max-width: 1024px) {
+    .inicio{
+        text-align: center;
+    }
+    .text{
+        font-size: 40px;
+        z-index:1;
+    }
 
+    .servicios2{
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: center;
+        padding: 40px;
+        gap: 40px;
+    
+    }
 
-@media only screen and (max-width: 460px) {
+    .blockquote{
+        width: 200px;
+        font-size:20px;
+
+    }
+
+    .contacto nav{
+        display: grid;
+        grid-template-columns: auto auto ;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 460px) {
     header{
         grid-template-columns: auto;
         height: 150px;
@@ -25,17 +56,16 @@
 
     .inicio{
         font-size: 30px;
+        height: 50vh;
         text-align: center;
         
     }
     .text{
         font-size: 30px;
+        margin-top: auto 0;        
         padding: 20px;
-        margin: 0px;
         z-index:1;
     }
-
-
     h1{
         font-size: 40px;
        font-weight:bolder ;
@@ -116,37 +146,3 @@
     }
 }
 
-@media only screen and (max-width: 1024px) {
-    .inicio{
-        text-align: center;
-    }
-    .text{
-        font-size: 50px;
-        padding: 20px;
-        margin: 30px;
-        z-index:1;
-    }
-
-    .servicios2{
-        display: grid;
-        grid-template-columns: auto auto;
-        justify-content: center;
-        padding: 40px;
-        gap: 40px;
-    
-    }
-
-    .blockquote{
-        width: 200px;
-        font-size:20px;
-
-    }
-
-    .contacto nav{
-        display: grid;
-        grid-template-columns: auto auto ;
-        justify-content: center;
-        gap: 20px;
-        padding: 20px;
-    }
-}
