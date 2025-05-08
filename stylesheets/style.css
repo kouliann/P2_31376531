@@ -310,6 +310,57 @@ video{
     cursor: pointer;
     box-shadow: 4px 4px 6px 8px  rgba(8, 8, 8, 0.347);
 }
+
+form{
+    display: grid;
+    grid-template-columns: auto;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+input[type="text"], input[type="email"], input[type="tel"]{
+    width: 100%;
+    border: 1px solid var(--primary-color);
+    color: var(--black);
+    border-radius: 10px;
+    padding: 15px 10px;
+    font-size: 16px;
+    
+}
+
+button[type="submit"]{
+    width: 50%;
+    border: 1px solid var(--primary-color);
+    color: var(--black);
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+label{
+    color: white;
+    font-size: 18px;
+    padding-bottom: 5px;
+    width: 100%;
+    margin-top: 10px;
+
+}
+
+textarea{
+    width: 100%;
+    border: 1px solid var(--primary-color);
+    color: var(--black);
+    border-radius: 10px;
+    padding: 15px 10px;
+    font-size: 16px;
+    resize: none;
+    margin-top: 10px;
+} 
+
 footer{
     background-color: var(--primary-color);
     color: var(--secondary-color);
