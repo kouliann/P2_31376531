@@ -22,16 +22,13 @@ router.post('/contacto', function (req, res, next) {
     contacto_1.default.create1(nombre, email, telefono, mensaje)
         .then((id) => {
         res.redirect('/');
-        console.log('prueba 2');
+        
     })
         .catch(error => {
         console.error('Error al guardar el contacto:', error);
         return res.status(500).send('Error al guardar el contacto');
     });
 });
-
-
-
 
 router.post('/pagos', function (req, res, next) {
     const { nombre, email, telefono, direccion, tarjeta, mes, ano, cvv, monto, moneda} = req.body;
@@ -40,7 +37,6 @@ router.post('/pagos', function (req, res, next) {
     contacto_1.default.create2(nombre, email, telefono, direccion, tarjeta, mes, ano, cvv, monto, moneda)
         .then((id) => {
         res.redirect('/pagos');
-        console.log('prueba 3');
     })
         .catch(error => {
         console.error('Error al guardar el contacto:', error);
