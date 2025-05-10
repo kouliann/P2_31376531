@@ -115,6 +115,19 @@
         <section class="contacto">
             <h1>Contacto</h1>
             <p>Si tiene alguna pregunta o desea más información, no dude en contactarnos.</p>
+            
+            <form action="/contacto" method="post">
+                <section class="formulario">
+                    <h2>Formulario de contacto</h2>
+                    <div class="form">
+                        <input id="nombre" type="text" name="nombre" placeholder="Nombres y Apellidos" required>
+                        <input id="email" type="email" name="email" placeholder="Email" required>
+                        <input id="telefono" type="tel" name="telefono" placeholder="Telefono" required>
+                        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Mensaje"></textarea>
+                        <button type="submit">Enviar</button>
+                    </div>
+                </section>
+            </form>
             <nav>
                 <a href="#"><div><img src="/dist/public/images/email.png" alt="..."> <h3>safe&home@gmail.com</h3></div></a>
                 <a href="#"><div><img src="/dist/public/images/telefono.png" alt="..."><h3>+58 0424-3068194</h3> </div></a>

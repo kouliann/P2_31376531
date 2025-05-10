@@ -24,7 +24,7 @@
         <div class="text">
             <h1>Bienvenido a Safe&Home</h1>
             <p>La seguridad de tu hogar es nuestra prioridad.</p>
-            <button class="button">Contactanos ya!</button>
+            <a href="#contacto"><button class="button">Contactanos ya!</button></a>
         </div>
         <video muted autoplay loop >
             <source src="/images/securitycam.mp4">
@@ -38,25 +38,36 @@
                     <div>
                         <img src="images/alarma1.png" alt="Alarmas">
                         <p>Alarmas para accidentes, desastres naturales y robos.</p>
+                        <p>100$</p>
+                        <a href="/pagos"><button>Solicitar Servicio</button></a>
                     </div>
+                    
                 </div>
                 <div class="card" >
                     <div>
                         <img src="images/alarma2.jpg" alt="Alarmas">
-                        <p>Camaras de seguridad con sensor de movimiento.</p>                        
+                        <p>Camaras de seguridad con sensor de movimiento.</p>   
+                        <p>200$</p>    
+                        <a href="/pagos"><button>Solicitar Servicio</button></a>                 
                     </div>
                 </div>
                 <div class="card" >
                     <div>
                         <img src="images/camara2.jpg" alt="Alarmas">
                         <p>Instalacion del servicio deseado y mantenimiento anual.</p>
+                        <p>250$</p>
+                        <a href="/pagos"><button>Solicitar Servicio</button></a>
                     </div>
+                    
                 </div>
                 <div class="card" >
                     <div>
                         <img src="images/camara.jpg" alt="Alarmas">
                         <p>Instalación del equipo y software para vigilancia 24/7 desde tu telefono celular</p>
+                        <p>300$</p>
+                        <a href="/pagos"><button>Solicitar Servicio</button></a>
                     </div>
+                    
                 </div>
             </div>
         </section>
@@ -111,9 +122,24 @@
             </div>
         </section>
 
+        
+
         <section class="contacto" id="contacto">
             <h1>Contacto</h1>
             <p>Si tiene alguna pregunta o desea más información, no dude en contactarnos.</p>
+
+            <form action="/contacto" method="post" class="form">
+                <section>
+                    <h2>Formulario de contacto</h2>
+                    <div >
+                        <input id="nombre" type="text" name="nombre" placeholder="Nombres y Apellidos" required>
+                        <input id="email" type="email" name="email" placeholder="Email" required>
+                        <input id="telefono" type="tel" name="telefono" placeholder="Telefono" required>
+                        <textarea id="mensaje" name="mensaje" rows="5" placeholder="Mensaje"></textarea>
+                        <button type="submit">Enviar</button>
+                    </div>
+                </section>
+            </form>
             <nav>
                 <a href="#"><div><img src="images/email.png" alt="..."> <h3>safe&home@gmail.com</h3></div></a>
                 <a href="#"><div><img src="images/telefono.png" alt="..."><h3>+58 0424-3068194</h3> </div></a>

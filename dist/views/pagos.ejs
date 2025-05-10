@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/querys.css">
+  </head>
+  <body>
+    <header>
+        <nav>
+            <img src="images/logo.jpg" alt="logo">
+        </nav>
+        <nav>
+            <ul>  
+                <li><a href="/">Inicio</a></li>
+                <li><a href="#ventajas">Nosotros</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <nav>
+        <form action="/pagos" method="post" class="formulario">
+            <section >
+                    <h2>Formulario de pago</h2>
+                    <div>
+                        <input id="nombre" type="text" name="nombre" placeholder="Nombre del titular" required>
+                        <input id="email" type="email" name="email" placeholder="Email" required>
+                        <input id="telefono" type="tel" name="telefono" placeholder="Telefono" required>
+                        <input id="direccion" type="text" name="direccion" placeholder="Direccion" required>
+                        <input id="tarjeta" type="number" name="tarjeta" minlength="10000000000000" maxlength="9999999999999999" placeholder="Numero de tarjeta" required> 
+                        <label for="mes">Fecha de expiracion</label>
+                            <input type="number" id="mes" name="mes" min="1" max="12" placeholder="Mes" required>
+                            <input type="number" id="ano" name="ano" min="2025" max="2035" placeholder="Año" required>
+                        <input id="cvv" type="number" name="cvv" minlength="3" max="999" placeholder="CVV" required>
+                        
+                        <input id="monto" type="number" name="monto" placeholder="Monto a pagar" required>
+                        <label for="moneda">Moneda</label>
+                        <select name="moneda" id="moneda">
+                            <option value="dolares">Dólares ($)</option>
+                            <option value="bolivares">Bolivares (Bs)</option>
+                        </select>
+                        <button type="submit">Enviar</button>
+                    </div>
+            </section>
+        </form>
+    </nav>
+  </body>
