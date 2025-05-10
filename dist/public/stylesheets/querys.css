@@ -1,4 +1,4 @@
-@media only screen and (max-width: 1024px) {
+@media screen and (min-width: 320px) {
     .inicio{
         text-align: center;
     }
@@ -31,7 +31,7 @@
     }
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 1024px) {
     header{
         grid-template-columns: auto;
         height: 150px;
@@ -56,7 +56,7 @@
 
     .inicio{
         font-size: 30px;
-        height: 50vh;
+        height: 100vh;
         text-align: center;
         
     }
@@ -143,6 +143,38 @@
         height: 25px;
         margin:0 auto;
     
+    }
+    .form{
+        width: 50%;
+        height: auto;
+        gap: 5px;
+        padding: 0;
+    }
+
+    .formulario{
+        padding: 20px;
+    }
+
+    input[type="text"], input[type="email"], input[type="tel"], input[type="number"]{
+        width: 90%;
+        margin-top: 10px;
+        font-size: 16px;
+    
+    }
+    textarea{
+        width: 90%;
+        margin-top: 10px;
+    } 
+
+    button[type="submit"]{
+        width: 50%;
+        margin: auto;
+        margin-top: 10px;
+        
+    }
+
+    footer p{
+        font-size: 10px
     }
 }
 

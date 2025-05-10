@@ -6,4 +6,9 @@ router.get('/', (req: Request, res: Response) => {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/pagos', (req: Request, res: Response) => {
+  res.render('pagos', { title: 'Express' });
+});
+
+
 export default router;
