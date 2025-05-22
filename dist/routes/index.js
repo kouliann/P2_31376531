@@ -16,17 +16,17 @@ router.get('/pagos', function(req, res) {
     res.render('pagos', { title: 'Compra del Servicio' });
 });
 
+router.get('/admin/contacts', function(req, res) {
+    res.render('contacts', { title: 'Lista de Contactos' });
+});
+
 router.post('/contacto', function (req, res, next) {
     const { nombre, email, telefono, mensaje } = req.body;
     console.log(req.body);
     contacto_1.default.create1(nombre, email, telefono, mensaje)
         .then((id) => {
         res.redirect('/');
-<<<<<<< HEAD
-        
-=======
         console.log('prueba 2');
->>>>>>> 426cad25f69fc642d2eb521bc2b8fb834b5e8adb
     })
         .catch(error => {
         console.error('Error al guardar el contacto:', error);
@@ -34,12 +34,6 @@ router.post('/contacto', function (req, res, next) {
     });
 });
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 426cad25f69fc642d2eb521bc2b8fb834b5e8adb
 router.post('/pagos', function (req, res, next) {
     const { nombre, email, telefono, direccion, tarjeta, mes, ano, cvv, monto, moneda} = req.body;
     console.log(req.body);
@@ -47,14 +41,27 @@ router.post('/pagos', function (req, res, next) {
     contacto_1.default.create2(nombre, email, telefono, direccion, tarjeta, mes, ano, cvv, monto, moneda)
         .then((id) => {
         res.redirect('/pagos');
-<<<<<<< HEAD
-=======
         console.log('prueba 3');
->>>>>>> 426cad25f69fc642d2eb521bc2b8fb834b5e8adb
     })
         .catch(error => {
         console.error('Error al guardar el contacto:', error);
         return res.status(500).send('Error al guardar el contacto');
     });
 });
+
+router.get('/admin/contacts', function (req, res) {
+    const query = 'SELECT * FROM contacto';
+
+    db.all(query, (err, rows) => {
+        if (err) {
+            console.error('Error al ejecutar la consulta:', err.message);
+            res.status(500).send('Error interno del servidor');
+            return;
+        }
+        // Renderizar la vista 'index.ejs' y pasar los resultados de la consulta
+        res.render('contacts', { contactos: rows });
+    });
+});
+
+
 exports.default = router;

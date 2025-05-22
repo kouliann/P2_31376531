@@ -1,7 +1,11 @@
+import { ALL } from 'dns';
 import db from './sqlite';
 
 
+
 export default {
+
+    
     create1 (nombre: any, email:any, telefono:any, mensaje:any) {
         return new Promise((resolve, reject) => {
             const sql1 = `INSERT INTO contacto (id, nombre, email, telefono, mensaje) VALUES (?, ?, ?, ?)`;
@@ -24,4 +28,7 @@ export default {
         })             
 
     }
+
+    
+
 }

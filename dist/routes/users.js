@@ -14,4 +14,9 @@ router.get('/pagos', (req, res) => {
     res.render('pagos', { title: 'Express' });
 
 });
+
+router.get('/admin/contacts', (req, res) => {
+    res.render('contacts', { title: 'Express' });
+
+});
 exports.default = router;

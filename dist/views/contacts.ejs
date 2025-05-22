@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/querys.css">
+  </head>
+  <body>
+    <header>
+        <nav>
+            <img src="images/alarma1.png" alt="logo">
+        </nav>
+        <nav>
+            <ul>  
+                <li><a href="/">Inicio</a></li>
+                <li><a href="#ventajas">Nosotros</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <nav>
+      <h1>Usuarios Registrados</h1>
+
+    <% if (contactos && contactos.length > 0) { %>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% contactos.forEach(function(contacto) { %>
+                    <tr>
+                        <td><%= contacto.id %></td>
+                        <td><%= contacto.nombre %></td>
+                        <td><%= contacto.email %></td>
+                        <td><%= contacto.telefono %></td>
+                        <td><%= contacto.mensaje %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>No hay usuarios registrados en la base de datos.</p>
+    <% } %>
+    </nav>
+   </body>
+</html>

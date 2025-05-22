@@ -12,7 +12,7 @@ const db = new sqlite.Database(path.resolve(__dirname, '../db', 'contacto.db'), 
 
 
         const sql2 = `CREATE TABLE IF NOT EXISTS pagos (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre VARCHAR(100) NOT NULL, email TEXT, telefono INTEGER, direccion TEXT, tarjeta INTEGER, mes INTEGER, ano INTEGER, cvv INTEGER, monto INTEGER, moneda TEXT)`;
-        db.run(sql1,sql2, (error) => {
+        db.run(sql1, sql2, (error) => {
             if (error) {
                 return console.log(error);
             }
