@@ -5,27 +5,36 @@
   "scripts": {
     "build": "tsc && npm run copy-views",
     "copy-views": "cp -r src/views dist/views",
-    "start": "nodemon dist/server.js",
-    "dev": "ts-node src/app.ts"
+    "start": "nodemon dist/server.ts",
+    "dev": "ts-node dist/app.ts"
   },
   "dependencies": {
+    "axios": "^1.9.0",
     "body": "^5.1.0",
     "body-parser": "^2.2.0",
     "cookie": "^1.0.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.5.0",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
+    "express-validator": "^7.2.1",
     "http-errors": "~1.6.3",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "~1.9.1",
+    "nodemailer": "^7.0.3",
     "parser": "^0.1.4",
     "render": "^0.1.4",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/axios": "^0.9.36",
     "@types/cookie-parser": "^1.4.8",
     "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/morgan": "^1.9.9",
+    "@types/nodemailer": "^6.4.17",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",

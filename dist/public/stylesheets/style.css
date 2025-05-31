@@ -345,7 +345,7 @@ input[type="text"], input[type="email"], input[type="tel"], input[type="number"]
   color: var(--black);
   border-radius: 10px;
   padding: 15px;
-  margin-top: 10px;
+  margin: 2px 0 10px 0;
   font-size: 16px;
   
 }
@@ -374,9 +374,9 @@ textarea{
 } 
 
 button[type="submit"]{
+  margin: 0 auto;
   width: 50%;
   padding: 10px;
-  margin-left: auto;
   border: 1px solid var(--primary-color);
   color: var(--secondary-color);
   border-radius: 10px;
@@ -388,11 +388,13 @@ button[type="submit"]{
 }
 
 button[type="submit"]:hover{
+
   background-color: var(--secondary-color);
   color: var(--primary-color);
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
 
 .servicios2 button{
   width: 50%;
@@ -428,4 +430,104 @@ footer img{
   margin: 5px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.mainNav{
+  width: 100%;
+  height: auto;
+  color: var(--secondary-color);
+  padding: 20px;
+  text-align: center;
+}
+
+.mainNav h2{
+  font-size: 40px;
+  margin-top: 100px;
+  font-weight: bolder;
+  color: var(--primary-color);
+}
+
+.mainNav table{
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: var(--primary-color); 
+  width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid var(--primary-color);
+  color: var(--secondary-color);
+  font-size: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.tableTd{
+  font-weight: lighter;
+  color: var(--secondary-color);
+}
+.tableTd:first-child{
+  font-weight: bold;
+}
+
+.tableHeader{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+}       
+
+.tableHeader th{
+  text-align: left;
+}
+
+.mainForm{
+
+  max-width: 1000px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  background-color: var(--secondary-color);
+}
+
+.mainForm div{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.mainForm input{
+  text-decoration: none;
+  color: var(--black);
+  border-radius: 10px;
+  border: 1px solid #a0a0a0;
+
+}
+
+.mainForm h2{
+  font-size: 40px;
+  margin-top: 100px;
+  font-weight: bolder;
+  color: var(--primary-color);
+}
+
+.mainForm .inputs{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.mainForm .formLabel{
+  margin: 10px 0;
+  color: var(--primary-color);
+  font-size: 18px;
+}
+
+.g-recaptcha{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }

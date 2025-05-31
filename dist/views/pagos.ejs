@@ -4,6 +4,18 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="/stylesheets/querys.css">
+    
+    <!-- Recaptcha -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.render('html_element', {
+          'sitekey' : process.env.site_key
+        });
+      };
+    </script>
+
   </head>
   <body>
     <header>
@@ -20,31 +32,48 @@
         </nav>
     </header>
 
-    <nav>
-        <form action="/pagos" method="post" class="formulario">
-            <section >
+    <nav class="mainNavForm"> 
+        <form action="/payments" method="post" class="formulario mainForm">
                     <h2>Formulario de pago</h2>
                     <div>
+                        <label class="formLabel">Datos del titular</label>
                         <input id="nombre" type="text" name="nombre" placeholder="Nombre del titular" required>
+                        <label class="formLabel">Correo Electronico</label>
                         <input id="email" type="email" name="email" placeholder="Email" required>
+                        <label class="formLabel">Numero de Telefono</label>
                         <input id="telefono" type="tel" name="telefono" placeholder="Telefono" required>
+                        <label class="formLabel">Direccion</label>
                         <input id="direccion" type="text" name="direccion" placeholder="Direccion" required>
+                        <label class="formLabel">Datos de la Tarjeta</label>
                         <input id="tarjeta" type="number" name="tarjeta" minlength="10000000000000" maxlength="9999999999999999" placeholder="Numero de tarjeta" required> 
-                        <label for="mes">Fecha de expiracion</label>
+                        <div class="inputs">
                             <input type="number" id="mes" name="mes" min="1" max="12" placeholder="Mes" required>
                             <input type="number" id="ano" name="ano" min="2025" max="2035" placeholder="Año" required>
-                        <input id="cvv" type="number" name="cvv" minlength="3" max="999" placeholder="CVV" required>
-                        
+                            <input id="cvv" type="number" name="cvv" minlength="3" max="999" placeholder="CVV" required>
+                        </div>
+                        <label class="formLabel">Monto</label>
                         <input id="monto" type="number" name="monto" placeholder="Monto a pagar" required>
-                        <label for="moneda">Moneda</label>
-                        <select name="moneda" id="moneda">
-                            <option value="dolares">Dólares ($)</option>
-                            <option value="bolivares">Bolivares (Bs)</option>
+                        <label class="formLabel">Moneda</label>
+                        <select name="moneda" id="moneda" class="select">
+                            <option value="USD">USD</option>
+                            <option value="VES">VES</option>
                         </select>
+                        <div class="g-recaptcha" data-sitekey=<%= siteKey %>></div>
+                        
+                        <br/>
                         <button type="submit">Enviar</button>
                     </div>
-            </section>
         </form>
+
+            <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+                async defer>
+            </script>
+            <% if (typeof paymentResult !== 'undefined') { %>
+                <div>
+                    <h3>Resultado del pago:</h3>
+                    <pre><%= JSON.stringify(paymentResult, null, 2) %></pre>
+                </div>
+            <% } %>
     </nav>
     <script>
         const button = document.querySelector('#enviar');
@@ -53,6 +82,20 @@
                         alert('¡Gracias por tu pago!');
             });
     </script>
-     
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form[action="/pagos"]');
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    // Obtiene el valor del token de reCAPTCHA
+                    const recaptcha = document.querySelector('[name="g-recaptcha-response"]');
+                    if (!recaptcha || recaptcha.value === "") {
+                        e.preventDefault();
+                        alert('Por favor, completa el reCAPTCHA antes de enviar el formulario.');
+                    }
+                });
+            }
+        });
+    </script>
   </body>
 </html>

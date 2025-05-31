@@ -4,8 +4,30 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="/stylesheets/querys.css">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=process.env,analyticsPass"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', process.env,analyticsPass);
+    </script>
+    <!--Recaptcha g-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script type="text/javascript">
+      var onloadCallback = function() {
+        grecaptcha.render('html_element', {
+          'sitekey' : process.env.site_key
+        });
+      };
+    </script>
+
+   
+    
   </head>
-  <body>
+  <body>  
     <header>
         <nav>
             <img src="images/logo.jpg" alt="logo">
@@ -39,7 +61,7 @@
                         <img src="images/alarma1.png" alt="Alarmas">
                         <p>Alarmas para accidentes, desastres naturales y robos.</p>
                         <p>100$</p>
-                        <a href="/pagos"><button>Solicitar Servicio</button></a>
+                        <a href="/payments"><button>Solicitar Servicio</button></a>
                     </div>
                     
                 </div>
@@ -48,7 +70,7 @@
                         <img src="images/alarma2.jpg" alt="Alarmas">
                         <p>Camaras de seguridad con sensor de movimiento.</p>   
                         <p>200$</p>    
-                        <a href="/pagos"><button>Solicitar Servicio</button></a>                 
+                        <a href="/payments"><button>Solicitar Servicio</button></a>                 
                     </div>
                 </div>
                 <div class="card" >
@@ -56,7 +78,7 @@
                         <img src="images/camara2.jpg" alt="Alarmas">
                         <p>Instalacion del servicio deseado y mantenimiento anual.</p>
                         <p>250$</p>
-                        <a href="/pagos"><button>Solicitar Servicio</button></a>
+                        <a href="/payments"><button>Solicitar Servicio</button></a>
                     </div>
                     
                 </div>
@@ -65,7 +87,7 @@
                         <img src="images/camara.jpg" alt="Alarmas">
                         <p>Instalación del equipo y software para vigilancia 24/7 desde tu telefono celular</p>
                         <p>300$</p>
-                        <a href="/pagos"><button>Solicitar Servicio</button></a>
+                        <a href="/payments"><button>Solicitar Servicio</button></a>
                     </div>
                     
                 </div>
@@ -122,8 +144,6 @@
             </div>
         </section>
 
-        
-
         <section class="contacto" id="contacto">
             <h1>Contacto</h1>
             <p>Si tiene alguna pregunta o desea más información, no dude en contactarnos.</p>
@@ -136,10 +156,18 @@
                         <input id="email" type="email" name="email" placeholder="Email" required>
                         <input id="telefono" type="tel" name="telefono" placeholder="Telefono" required>
                         <textarea id="mensaje" name="mensaje" rows="5" placeholder="Mensaje"></textarea>
+                        <div class="g-recaptcha" data-sitekey=<%= siteKey %>></div>
+                        <br/>
                         <button type="submit">Enviar</button>
                     </div>
                 </section>
+                
             </form>
+                
+
+            <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+                async defer>
+            </script>
             <nav>
                 <a href="#"><div><img src="images/email.png" alt="..."> <h3>safe&home@gmail.com</h3></div></a>
                 <a href="#"><div><img src="images/telefono.png" alt="..."><h3>+58 0424-3068194</h3> </div></a>
@@ -158,11 +186,19 @@
     </footer>
 
     <script>
-        const form = document.querySelector('.form');
-        form.addEventListener('submit', function() {
-            alert('Formulario enviado');
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form[action="/contacto"]');
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    // Obtiene el valor del token de reCAPTCHA
+                    const recaptcha = document.querySelector('[name="g-recaptcha-response"]');
+                    if (!recaptcha || recaptcha.value === "") {
+                        e.preventDefault();
+                        alert('Por favor, completa el reCAPTCHA antes de enviar el formulario.');
+                    }
+                });
+            }
         });
-        
     </script>
 </body>
 </html>
