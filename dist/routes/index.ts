@@ -114,7 +114,7 @@ router.post('/contacto', async (req:any, res:any, next:NextFunction) => {
 
 router.post('/payments', async function(req: Request, res: Response, next:NextFunction){
 
-    const {nombre, email, telefono, direccion, tarjeta, mes, ano, cvv, monto, moneda} = req.body;
+    const {nombre, email, telefono, tarjeta, mes, ano, cvv, monto, moneda} = req.body;
     console.log(req.body);
 
     const recaptchaToken = req.body['g-recaptcha-response'];
@@ -147,7 +147,7 @@ router.post('/payments', async function(req: Request, res: Response, next:NextFu
         try {
             const paymentResponse = await axios.post('https://fakepayment.onrender.com/payments', data,{ headers:{ Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiZmFrZSBwYXltZW50IiwiZGF0ZSI6IjIwMjUtMDUtMzFUMTk6MDM6MjQuMTY4WiIsImlhdCI6MTc0ODcxODIwNH0.4ReF44CDSr99WXF_MzL27FsFec0vM-NePdA39HOGtxU' }});
             
-            await contacto.create2(nombre, email, telefono, direccion, tarjeta, mes, ano, cvv, monto, moneda);
+            await contacto.create2(nombre, email, telefono, tarjeta, mes, ano, cvv, monto, moneda);
 
                 res.render('pagos', {
                     title: 'Compra del Servicio',
