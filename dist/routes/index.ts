@@ -127,7 +127,6 @@ router.post('/payments', async function(req: Request, res: Response, next:NextFu
         "error-codes"?: string[];
     }
     const response = await axios.post<RecaptchaResponse>(`https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`);
-    if(response.data.success===true){ 
 
         const data ={
             "amount": parseFloat(monto),
@@ -159,6 +158,5 @@ router.post('/payments', async function(req: Request, res: Response, next:NextFu
             console.error('Error en el pago:', error.response?.data || error.message);
             res.status(500).send('Error al procesar el pago');
         }
-    }
 });
 export default router;
