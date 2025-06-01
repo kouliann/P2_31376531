@@ -7,7 +7,7 @@ router.get('/', (req: Request, res: Response) => {
   res.render('index', { title: 'pagina principal' });
 });
 
-router.get('/pagos', (req: Request, res: Response) => {
+router.get('/payments', (req: Request, res: Response) => {
   res.render('pagos', { title: 'Compra del servicio' });
 });
 
