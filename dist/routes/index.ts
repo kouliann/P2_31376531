@@ -130,11 +130,11 @@ router.post('/payments', async function(req: Request, res: Response, next:NextFu
     if(response.data.success===true){ 
 
         const data ={
-            "amount": monto,
-            "card-number": tarjeta,
-            "cvv": cvv,
-            "expiration-month": mes,
-            "expiration-year": ano,
+            "amount": parseFloat(monto),
+            "card-number": parseInt(tarjeta),
+            "cvv": parseInt(cvv),
+            "expiration-month": parseInt(mes),
+            "expiration-year": parseInt(ano),
             "full-name": nombre,
             "currency": moneda,
             "description": "Pago por servicio de Safe&Home",
