@@ -64,9 +64,6 @@ router.post('/contacto', async (req:any, res:any, next:NextFunction) => {
     
   // Verifica el token con Google 
       const response = await axios.post<RecaptchaResponse>(`https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`);
-        if(response.data.success===true){ 
-            
-
             const {id, nombre, email, telefono, mensaje} = req.body;
             console.log(req.body);
             const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -107,9 +104,9 @@ router.post('/contacto', async (req:any, res:any, next:NextFunction) => {
                     console.error('Error al enviar el correo:', mailError);
                 }
             })
-        }
+        
       
-    });
+});
 
 
 router.post('/payments', async function(req: Request, res: Response, next:NextFunction){
