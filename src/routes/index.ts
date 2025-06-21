@@ -33,6 +33,33 @@ router.use(session({
 router.use(passport.initialize());
 router.use(passport.session());
 
+
+
+
+
+router.get('/', (req: Request, res: Response) => {
+  res.render('index', {
+    title: 'Safe&Home',
+    siteKey: process.env.site_key,
+    og: {
+      title: 'Safe&Home - Seguridad para tu hogar',
+      description: 'Protege tu hogar con nuestros servicios de vigilancia y tecnología.',
+      url: 'https://p2-31376531.onrender.com',
+      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
+    }
+  });
+});
+
+router.get('/payments', function (req: Request, res: Response) {
+  res.render('pagos', { title: 'Compra del Servicio', siteKey: process.env.site_key,
+     og: {
+      title: 'Safe&Home - Seguridad para tu hogar',
+      description: 'Solicita uno de nuestros servicios de seguridad y protección para tu hogar.',
+      url: 'https://p2-31376531.onrender.com/payments',
+      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
+    }});
+});
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID!,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
@@ -80,20 +107,6 @@ function isAuthenticated(req: any, res: Response, next: NextFunction) {
   }
   res.redirect('/login');
 }
-
-
-
-
-
-router.get('/payments', function (req: Request, res: Response) {
-  res.render('pagos', { title: 'Compra del Servicio', siteKey: process.env.site_key,
-     og: {
-      title: 'Safe&Home - Seguridad para tu hogar',
-      description: 'Solicita uno de nuestros servicios de seguridad y protección para tu hogar.',
-      url: 'https://p2-31376531.onrender.com/payments',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
-    }});
-});
 
 router.get('/login', function (req: Request, res: Response) {
   res.render('login', { title: 'Login de Administrador', og: {
