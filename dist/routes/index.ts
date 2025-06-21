@@ -83,7 +83,18 @@ function isAuthenticated(req: any, res: Response, next: NextFunction) {
 
 
 
-
+router.get('/', (req: Request, res: Response) => {
+  res.render('index', {
+    title: 'Safe&Home',
+    siteKey: process.env.site_key,
+    og: {
+      title: 'Safe&Home - Seguridad para tu hogar',
+      description: 'Protege tu hogar con nuestros servicios de vigilancia y tecnología.',
+      url: 'https://p2-31376531.onrender.com',
+      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
+    }
+  });
+});
 
 router.get('/payments', function (req: Request, res: Response) {
   res.render('pagos', { title: 'Compra del Servicio', siteKey: process.env.site_key,
