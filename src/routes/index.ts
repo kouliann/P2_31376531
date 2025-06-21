@@ -6,6 +6,12 @@ import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid'
 import dotenv from 'dotenv';
 import  session from 'express-session';
+
+declare module 'express-session' {
+  interface SessionData {
+    user?: any;
+  }
+}
 import bcrypt from 'bcryptjs';
 
 import passport from 'passport';
@@ -121,7 +127,9 @@ router.get('/login', function (req: Request, res: Response) {
 })
 
 router.get('/adminMenu', isAuthenticated, (req, res) => {
-  res.render('adminMenu', { title:'Menu de Administrador', user: req.user, og: {
+  res.render('adminMenu', { 
+    title:'Menu de Administrador', 
+    user: req.user || req.session.user, og: {
       title: 'Safe&Home - Seguridad para tu hogar',
       description: 'Administración de contactos, pagos y usuarios',
       url: 'https://p2-31376531.onrender.com/adminMenu',
@@ -173,11 +181,11 @@ router.get('/admin/contacts', function (req, res) {
             return;
         }
         res.render('contacts', { title: 'Lista de contactos',contactos: rows, og: {
-      title: 'Safe&Home - Seguridad para tu hogar',
-      description: 'Lista de contactos recibidos',
-      url: 'https://p2-31376531.onrender.com/admin/contacts',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
-    }});
+          title: 'Safe&Home - Seguridad para tu hogar',
+          description: 'Lista de contactos recibidos',
+          url: 'https://p2-31376531.onrender.com/admin/contacts',
+          image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
+        }});
     });
 });
 
