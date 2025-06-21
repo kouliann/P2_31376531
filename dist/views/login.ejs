@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= title %></title>
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <link rel="stylesheet" href="/stylesheets/querys.css">
+        
+        <!-- Etiquetas Open Graph -->
+        <meta property="og:title" content="<%= og && og.title ? og.title : title %>">
+        <meta property="og:description" content="<%= og && og.description ? og.description : '' %>">
+        <meta property="og:url" content="<%= og && og.url ? og.url : '' %>">
+        <meta property="og:image" content="<%= og && og.image ? og.image : '' %>">
+        <meta property="og:type" content="website">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <img src="images/logo.jpg" alt="logo">
+            </nav>
+            <nav>
+                <ul>  
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="#ventajas">Nosotros</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </header> 
+
+        <main class="login">
+            <form action="/login" method="post" class="formulario" id="loginForm">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Iniciar Sesión</button>
+                <a href="/auth/google">
+                    <button type="button">Iniciar sesión con Google</button>
+                </a>
+            <p id="errorMessage" class="error-message"></p>
+            <p id="errorMessage" class="error-message"></p>
+            </form>
+        </main>
+
+        <footer>
+            <img src="images/logo.jpg" alt="logo">
+            <p>&copy; 2023 Safe&Home. Todos los derechos reservados.</p>
+        </footer>
+        <script src="../public/javascripts/login.js"></script>
+    </body>
+</html>

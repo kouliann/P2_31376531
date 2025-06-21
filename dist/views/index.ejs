@@ -24,6 +24,12 @@
       };
     </script>
 
+    <!-- Etiquetas Open Graph -->
+        <meta property="og:title" content="<%= og && og.title ? og.title : title %>">
+        <meta property="og:description" content="<%= og && og.description ? og.description : '' %>">
+        <meta property="og:url" content="<%= og && og.url ? og.url : '' %>">
+        <meta property="og:image" content="<%= og && og.image ? og.image : '' %>">
+        <meta property="og:type" content="website">
    
     
   </head>
@@ -38,6 +44,7 @@
                 <li><a href="#ventajas">Nosotros</a></li>
                 <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#contacto">Contacto</a></li>
+                <li><a href="/login">Administrador</a></li>
             </ul>
         </nav>
     </header>
@@ -156,7 +163,7 @@
                         <input id="email" type="email" name="email" placeholder="Email" required>
                         <input id="telefono" type="tel" name="telefono" placeholder="Telefono" required>
                         <textarea id="mensaje" name="mensaje" rows="5" placeholder="Mensaje"></textarea>
-                        <div class="g-recaptcha" data-sitekey='6LfNrFErAAAAAJZ_XMe6MNjo2uFm6RX3M3U_Br4x'></div>
+                        <div class="g-recaptcha" data-sitekey= <%= process.env.site_key %>></div>
                         <br/>
                         <button type="submit">Enviar</button>
                     </div>

@@ -1,6 +1,6 @@
 
 import createError from 'http-errors';
-import express, { Request, Response, NextFunction } from 'express'; // Agregado Request y Response
+import express, { Request, Response, NextFunction } from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
@@ -8,7 +8,10 @@ import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 
 import bodyParser from 'body-parser';
-const session = require('express-session');
+import session from 'express-session';
+import passport from 'passport';
+import './auth/google'
+import authRouter from './routes/auth';
 
 const app = express();
 
@@ -16,12 +19,15 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.use(authRouter);
 app.use(session({
-  secret:'secret-key',
+  secret: 'tu_secreto',
   resave: false,
-  saveUninitialized: false,
-}))
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

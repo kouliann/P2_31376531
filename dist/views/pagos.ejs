@@ -16,6 +16,12 @@
       };
     </script>
 
+        <!-- Etiquetas Open Graph -->
+    <meta property="og:title" content="<%= og && og.title ? og.title : title %>">
+    <meta property="og:description" content="<%= og && og.description ? og.description : '' %>">
+    <meta property="og:url" content="<%= og && og.url ? og.url : '' %>">
+    <meta property="og:image" content="<%= og && og.image ? og.image : '' %>">
+    <meta property="og:type" content="website">
   </head>
   <body>
     <header>
@@ -49,6 +55,14 @@
                             <input type="number" id="ano" name="ano" min="2025" max="2035" placeholder="Año" required>
                             <input id="cvv" type="number" name="cvv" minlength="3" max="999" placeholder="CVV" required>
                         </div>
+                        <select name="servicio" id="servicio" class="select">
+                            <option value="Alarmas para accidentes, desastres naturales y robos.">Alarmas para accidentes, desastres naturales y robos.</option>
+                            <option value="Camaras de seguridad con sensor de movimiento.">Camaras de seguridad con sensor de movimiento.</option>
+                            
+                            <option value="Instalacion del servicio deseado y mantenimiento anual.">Instalacion del servicio deseado y mantenimiento anual.</option>
+                            <option value="Instalación del equipo y software para vigilancia 24/7 desde tu telefono celular">Instalación del equipo y software para vigilancia 24/7 desde tu telefono celular</option>
+                        
+                        </select>
                         <label class="formLabel">Monto</label>
                         <input id="monto" type="number" name="monto" placeholder="Monto a pagar" required>
                         <label class="formLabel">Moneda</label>
@@ -56,44 +70,23 @@
                             <option value="USD">USD</option>
                             <option value="VES">VES</option>
                         </select>
-                        <div class="g-recaptcha" data-sitekey='6LfNrFErAAAAAJZ_XMe6MNjo2uFm6RX3M3U_Br4x'></div>
+                        <div class="g-recaptcha" data-sitekey=<%= process.env.site_key %>></div>
                         
                         <br/>
-                        <button type="submit">Enviar</button>
+                        <button type="submit" id="enviar">Enviar</button>
                     </div>
         </form>
 
             <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
                 async defer>
             </script>
-            <% if (typeof paymentResult !== 'undefined') { %>
-                <div>
-                    <h3>Resultado del pago:</h3>
-                    <pre><%= JSON.stringify(paymentResult, null, 2) %></pre>
-                </div>
-            <% } %>
+        
     </nav>
     <script>
-        const button = document.querySelector('#enviar');
-
-            button.addEventListener('click', function() {
-                        alert('¡Gracias por tu pago!');
+        document.addEventListener('submit', function() {
+                alert('¡Gracias por tu pago!');
             });
     </script>
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.querySelector('form[action="/pagos"]');
-            if (form) {
-                form.addEventListener('submit', function (e) {
-                    // Obtiene el valor del token de reCAPTCHA
-                    const recaptcha = document.querySelector('[name="g-recaptcha-response"]');
-                    if (!recaptcha || recaptcha.value === "") {
-                        e.preventDefault();
-                        alert('Por favor, completa el reCAPTCHA antes de enviar el formulario.');
-                    }
-                });
-            }
-        });
-    </script>
+    
   </body>
 </html>

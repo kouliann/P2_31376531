@@ -433,7 +433,7 @@ footer img{
 }
 
 .mainNav{
-  width: 100%;
+  width: 95%;
   height: auto;
   color: var(--secondary-color);
   padding: 20px;
@@ -451,7 +451,8 @@ footer img{
   display: grid;
   grid-template-columns: 1fr;
   background-color: var(--primary-color); 
-  width: 900px;
+  width: 80%;
+  height: auto;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid var(--primary-color);
@@ -463,17 +464,28 @@ footer img{
   gap: 20px;
 }
 
+tbody{
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+
+}
+
 .tableTd{
   font-weight: lighter;
   color: var(--secondary-color);
+  padding-right: 20px;
 }
 .tableTd:first-child{
   font-weight: bold;
 }
 
 .tableHeader{
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+ 
 
 }       
 
@@ -531,3 +543,21 @@ footer img{
   display: flex;
   justify-content: center;
 }
+
+.menu{
+    display: grid;
+    grid-template-columns: auto;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    text-align: center;
+    width: 25%;
+    height: auto;
+    padding: 10%;
+}
+
+.menu p{
+  font-size:35px ;
+
+}
+

@@ -4,6 +4,7 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="/stylesheets/querys.css">
+
         <!-- Etiquetas Open Graph -->
     <meta property="og:title" content="<%= og && og.title ? og.title : title %>">
     <meta property="og:description" content="<%= og && og.description ? og.description : '' %>">
@@ -23,34 +24,34 @@
             </ul>
         </nav>
     </header>
-    <nav class="mainNav">
-      <h2>Personas que nos han contactado</h2>
+    <body>
+        <nav class="mainNav">
+      <h2>Pagos Recibidos</h2>
 
-    <% if (contactos && contactos.length > 0) { %>
+    <% if (pagos && pagos.length > 0) { %>
         <table>
             <thead>
                 <tr class="tableHeader">
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Email</th>
-                    <th>Mensaje</th>
-                    <th>IP</th>
-                    <th>País</th>
-                    <th>Fecha de contacto</th>
+                    <th>Servicio</th>
+                    <th>monto</th>
+                    <th>moneda</th>
+                    <th>Fecha de Solicitud</th>
                 </tr>
             </thead>
-            <input type="text" id="searchInput" placeholder="Buscar por nombre o email..." style="margin-bottom:10px; width: 300px;">
+            <input type="text" id="searchInput" placeholder="Buscar por Fechas o Servicios " style="margin-bottom:10px; width: 300px;">
             <tbody>
-                <% contactos.forEach(function(contacto) { %>
-                    <tr class="tableBody">
-                        <td class="tableTd"><%= contacto.id %></td>
-                        <td class="tableTd"><%= contacto.nombre %></td>
-                        <td class="tableTd"><%= contacto.email %></td>
-                        
-                        <td class="tableTd"><%= contacto.mensaje %></td>
-                        <td class="tableTd"><%= contacto.ip %></td>
-                        <td class="tableTd"><%= contacto.pais %></td>
-                        <td class="tableTd"><%= contacto.fecha %></td>
+                <% pagos.forEach(function(pago) { %>
+                    <tr>
+                        <td class="tableTd"><%= pago.id %></td>
+                        <td class="tableTd"><%= pago.nombre %></td>
+                        <td class="tableTd"><%= pago.email %></td>
+                        <td class="tableTd"><%= pago.servicio %></td>
+                        <td class="tableTd"><%= pago.monto %></td>
+                        <td class="tableTd"><%= pago.moneda %></td>
+                        <td class="tableTd"><%= pago.fecha %></td>
                     </tr>
                 <% }); %>
             </tbody>
@@ -59,11 +60,9 @@
         <p>No hay usuarios registrados en la base de datos.</p>
     <% } %>
     </nav>
-
-    <!---->
     <footer>
         <img src="/images/logo.jpg" alt="logo">
-        <p>&copy; 2025 Safe&Home. Todos los derechos reservados.</p>
+        <p>&copy; 2023 Safe&Home. Todos los derechos reservados.</p>
     </footer>
 
     <script>
@@ -71,15 +70,15 @@
             const filter = this.value.toLowerCase();
             const rows = document.querySelectorAll('table tbody tr');
             rows.forEach(row => {
-                const name = row.querySelector('td:nth-child(1)')?.textContent?.toLowerCase() || '';
-                const email = row.querySelector('td:nth-child(2)')?.textContent?.toLowerCase() || '';
-                if (name.includes(filter) || email.includes(filter)) {
+                const dates = row.querySelector('td:nth-child(7)')?.textContent?.toLowerCase() || '';
+                const services = row.querySelector('td:nth-child(4)')?.textContent?.toLowerCase() || '';
+                if (dates.includes(filter) || services.includes(filter)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
                 }
             });
         });
-</script>
-   </body>
+    </script>
+    </body>
 </html>

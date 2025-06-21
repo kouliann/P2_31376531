@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Menu de Administración - Safe&Home
+    </title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/querys.css">
+
+    <!-- Etiquetas Open Graph -->
+    <meta property="og:title" content="<%= og && og.title ? og.title : title %>">
+    <meta property="og:description" content="<%= og && og.description ? og.description : '' %>">
+    <meta property="og:url" content="<%= og && og.url ? og.url : '' %>">
+    <meta property="og:image" content="<%= og && og.image ? og.image : '' %>">
+    <meta property="og:type" content="website">
+  </head>
+  <body>
+   <header>
+        <nav>
+            <img src="/images/logo.jpg" alt="logo">
+            <ul>  
+                <li><a href="/">Inicio</a></li>
+                <li><a href="#ventajas">Nosotros</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <body>
+       
+    <section class="menu">
+        <p>Bienvenido al panel de administración</p>
+        <a href="/admin/contacts"><button class="button">Contactos</button></a>
+        <a href="/admin/payments"><button class="button">Pagos</button></a>
+        <a href="/admin/users"><button class="button">Usuarios</button></a>
+        <a href="/logout"><button class="button">Salir</button></a>
+    </section>
+    
+    <footer>
+        <img src="/images/logo.jpg" alt="logo">
+        <p>&copy; 2023 Safe&Home. Todos los derechos reservados.</p>
+    </footer>
+    </body>
+</html>
