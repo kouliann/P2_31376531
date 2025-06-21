@@ -11,7 +11,6 @@ import bodyParser from 'body-parser';
 import session from 'express-session';
 import passport from 'passport';
 import './auth/google'
-import authRouter from './routes/auth';
 
 const app = express();
 
@@ -19,7 +18,7 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(authRouter);
+
 app.use(session({
   secret: 'tu_secreto',
   resave: false,
