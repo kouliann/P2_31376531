@@ -51,13 +51,16 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 router.get('/payments', function (req: Request, res: Response) {
-  res.render('pagos', { title: 'Compra del Servicio', siteKey: process.env.site_key,
-     og: {
+  res.render('pagos', {
+    title: 'Compra del Servicio',
+    siteKey: process.env.site_key,
+    og: {
       title: 'Safe&Home - Seguridad para tu hogar',
       description: 'Solicita uno de nuestros servicios de seguridad y protección para tu hogar.',
       url: 'https://p2-31376531.onrender.com/payments',
       image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
-    }});
+    }
+});
 });
 
 passport.use(new GoogleStrategy({
@@ -170,11 +173,11 @@ router.get('/admin/contacts', function (req, res) {
             return;
         }
         res.render('contacts', { title: 'Lista de contactos',contactos: rows, og: {
-      title: 'Safe&Home - Seguridad para tu hogar',
-      description: 'Lista de contactos recibidos',
-      url: 'https://p2-31376531.onrender.com/admin/contacts',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
-    }});
+          title: 'Safe&Home - Seguridad para tu hogar',
+          description: 'Lista de contactos recibidos',
+          url: 'https://p2-31376531.onrender.com/admin/contacts',
+          image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
+        }});
     });
 });
 
@@ -323,11 +326,16 @@ router.post('/payments', async function(req: Request, res: Response, next:NextFu
             
             await contacto.create2(nombre, email, servicio, telefono, tarjeta, mes, ano, cvv, monto, moneda, new Date());
               
-                res.render('pagos',{
-                    title: 'Compra del Servicio',
-                    siteKey: process.env.site_key,
-                    paymentResult: paymentResponse.data
-                  
+                res.render('pagos', {
+                  title: 'Compra del Servicio',
+                  siteKey: process.env.site_key,
+                  paymentResult: paymentResponse.data,
+                  og: {
+                    title: 'Safe&Home - Seguridad para tu hogar',
+                    description: 'Solicita uno de nuestros servicios de seguridad y protección para tu hogar.',
+                    url: 'https://p2-31376531.onrender.com/payments',
+                    image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
+                  }
                 });
 
                 console.log('Pago procesado exitosamente:', paymentResponse.data);
