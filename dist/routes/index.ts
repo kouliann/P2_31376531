@@ -69,6 +69,22 @@ router.get('/payments', function (req: Request, res: Response) {
 });
 });
 
+
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((obj, done) => {
+  done(null, obj as any);
+});
+
+
+
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID!,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
@@ -80,7 +96,7 @@ passport.use(new GoogleStrategy({
       return done(null, false, { message: 'No se pudo obtener el email de Google.' });
     }
     db.get('SELECT * FROM users WHERE email = ?', [email], (err, user) => {
-      if (err) return done(err);
+      if (err) return console.log(err);
       if (!user) {
         return done(null, false, { message: 'El email no está registrado.' });
       }
@@ -88,18 +104,6 @@ passport.use(new GoogleStrategy({
     });
   }
 ));
-
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-passport.deserializeUser((obj, done) => {
-  done(null, obj as any);
-});
-
-
-router.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
 
 router.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
@@ -121,8 +125,6 @@ router.get('/login', function (req: Request, res: Response) {
   res.render('login', { title: 'Login de Administrador', og: {
       title: 'Safe&Home - Seguridad para tu hogar',
       description: 'Inicio de sesión para administradores',
-      url: 'https://p2-31376531.onrender.com/login',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
     }});
 })
 
@@ -360,11 +362,16 @@ router.post('/login', (req: any, res: Response) => {
 
 
     db.get('SELECT * FROM users WHERE email = ?', [email], (err, user: users | undefined) => {
+      try {
         if (err) return res.status(500).send('Error en la base de datos');
         if (!user || !user.password_hash) return res.status(401).send('Usuario o contraseña incorrectos');
         if (!bcrypt.compareSync(password, user.password_hash)) return res.status(401).send('Contraseña incorrecta');
         req.session.user = user;
         res.redirect('/adminMenu');
+      } catch (error) {
+        console.error('Error al autenticar al usuario:', error);
+        res.status(500).send('Error interno del servidor');
+      }
     });
 });
 
