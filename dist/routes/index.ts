@@ -96,7 +96,7 @@ passport.use(new GoogleStrategy({
       return done(null, false, { message: 'No se pudo obtener el email de Google.' });
     }
     db.get('SELECT * FROM users WHERE email = ?', [email], (err, user) => {
-      if (err) return console.log(err);
+      if (err) return done(err);
       if (!user) {
         return done(null, false, { message: 'El email no está registrado.' });
       }
@@ -129,6 +129,7 @@ router.get('/login', function (req: Request, res: Response) {
 })
 
 router.get('/adminMenu', isAuthenticated, (req, res) => {
+    console.log('Sesión en /adminMenu:', req.session.user, req.user);
   res.render('adminMenu', { 
     title:'Menu de Administrador', 
     user: req.user || req.session.user, og: {
@@ -367,6 +368,7 @@ router.post('/login', (req: any, res: Response) => {
         if (!user || !user.password_hash) return res.status(401).send('Usuario o contraseña incorrectos');
         if (!bcrypt.compareSync(password, user.password_hash)) return res.status(401).send('Contraseña incorrecta');
         req.session.user = user;
+          console.log('Usuario guardado en sesión:', req.session.user);
         res.redirect('/adminMenu');
       } catch (error) {
         console.error('Error al autenticar al usuario:', error);
