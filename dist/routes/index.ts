@@ -277,7 +277,7 @@ router.post('/contacto', async (req:any, res:any, next:NextFunction) => {
                 // Enviar correo
                 const mailOptions = {
                 from:'safeandhome06@gmail.com',
-                to: 'eliannibethpadrino@gmail.com',
+                to: 'programacion2ais@yopmail.com',
                 subject: 'Nuevo contacto de Safe&Home',
                 html: `
                 <h3>Nuevo mensaje de contacto</h3>
