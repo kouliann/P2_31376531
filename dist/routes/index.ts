@@ -9,7 +9,7 @@ import  session from 'express-session';
 
 declare module 'express-session' {
   interface SessionData {
-    user?: any;
+    user: any;
   }
 }
 import bcrypt from 'bcryptjs';
@@ -24,7 +24,7 @@ dotenv.config();
 let router: Router = express.Router();
 
 router.use(session({
-    secret: process.env.secretSession || 'secretKey',
+    secret: process.env.GOOGLE_CLIENT_SECRET!,
     resave: false,
     saveUninitialized: false,
     rolling: true,
@@ -39,20 +39,6 @@ router.use(session({
 router.use(passport.initialize());
 router.use(passport.session());
 
-
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-passport.deserializeUser((obj, done) => {
-  done(null, obj as any);
-});
-
-
-
-
-router.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID!,
@@ -73,6 +59,31 @@ passport.use(new GoogleStrategy({
     });
   }
 ));
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((obj, done) => {
+  done(null, obj as any);
+});
+
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  (req, res) => {
+    res.redirect('/adminMenu');
+  }
+);
+
+function isAuthenticated(req: any, res: Response, next: NextFunction) {
+  if (req.isAuthenticated && req.isAuthenticated) {
+    return next();
+  }
+  res.redirect('/login');
 
 
 router.get('/', (req: Request, res: Response) => {
@@ -101,20 +112,7 @@ router.get('/payments', function (req: Request, res: Response) {
 });
 });
 
-router.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  (req, res) => {
-    res.redirect('/adminMenu');
-  }
-);
 
-
-
-function isAuthenticated(req: any, res: Response, next: NextFunction) {
-  if ((req.isAuthenticated && req.isAuthenticated()) || req.session.user) {
-    return next();
-  }
-  res.redirect('/login');
 }
 
 router.get('/login', function (req: Request, res: Response) {
@@ -124,15 +122,18 @@ router.get('/login', function (req: Request, res: Response) {
     }});
 })
 
-router.get('/adminMenu', (req, res) => {
-    console.log('Sesión en /adminMenu:', req.session.user, req.user);
+router.get('/adminMenu', isAuthenticated, (req, res) => {
+  const referer = req.get('Referer');
+  if (!referer || !referer.includes('/')) {
+    return res.redirect('/login');
+  }
+
+
   res.render('adminMenu', { 
     title:'Menu de Administrador', 
     user: req.user || req.session.user, og: {
       title: 'Safe&Home - Seguridad para tu hogar',
       description: 'Administración de contactos, pagos y usuarios',
-      url: 'https://p2-31376531.onrender.com/adminMenu',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
     } });
 });
 
@@ -182,8 +183,6 @@ router.get('/admin/contacts', function (req, res) {
         res.render('contacts', { title: 'Lista de contactos',contactos: rows, og: {
           title: 'Safe&Home - Seguridad para tu hogar',
           description: 'Lista de contactos recibidos',
-          url: 'https://p2-31376531.onrender.com/admin/contacts',
-          image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
         }});
     });
 });
@@ -204,8 +203,6 @@ router.get('/admin/payments', function (req, res){
         res.render('payments', { title:'Lista de pagos',pagos: rows, og: {
       title: 'Safe&Home - Seguridad para tu hogar',
       description: 'pagos realizados por los servicios de seguridad',
-      url: 'https://p2-31376531.onrender.com/admin/payments',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
     } });
     });
 
@@ -227,8 +224,6 @@ router.get('/admin/users', function (req, res){
         res.render('registros', { title: 'Lista de usuarios registrados', users: rows, og: {
       title: 'Safe&Home - Seguridad para tu hogar',
       description: 'Lista de administradores registrados',
-      url: 'https://p2-31376531.onrender.com/admin/users',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
     } });
     });
 
@@ -340,8 +335,6 @@ router.post('/payments', async function(req: Request, res: Response, next:NextFu
                   og: {
                     title: 'Safe&Home - Seguridad para tu hogar',
                     description: 'Solicita uno de nuestros servicios de seguridad y protección para tu hogar.',
-                    url: 'https://p2-31376531.onrender.com/payments',
-                    image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
                   }
                 });
 
@@ -359,17 +352,12 @@ router.post('/login', (req: any, res: Response) => {
 
 
     db.get('SELECT * FROM users WHERE email = ?', [email], (err, user: users | undefined) => {
-      try {
         if (err) return res.status(500).send('Error en la base de datos');
         if (!user || !user.password_hash) return res.status(401).send('Usuario o contraseña incorrectos');
         if (!bcrypt.compareSync(password, user.password_hash)) return res.status(401).send('Contraseña incorrecta');
         req.session.user = user;
           console.log('Usuario guardado en sesión:', req.session.user);
         res.redirect('/adminMenu');
-      } catch (error) {
-        console.error('Error al autenticar al usuario:', error);
-        res.status(500).send('Error interno del servidor');
-      }
     });
 });
 
