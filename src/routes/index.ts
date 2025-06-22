@@ -29,10 +29,12 @@ router.use(session({
     saveUninitialized: false,
     rolling: true,
     cookie: {
-        httpOnly: true,               
-        sameSite: 'lax',               
-        secure: process.env.NODE_ENV === 'production', 
-        maxAge: 15 * 60 * 1000   
+        httpOnly: true,                // Previene acceso via JavaScript
+        sameSite: 'lax',               // Protección contra CSRF
+        secure: process.env.NODE_ENV === 'production', // Solo HTTPS en producción
+        maxAge: 15 * 60 * 1000,       // 15 minutos de inactividad
+        domain: process.env.NODE_ENV === 'production' ? '.tu-dominio.com' : undefined,
+        path: '/',
     }
 }));
 
@@ -90,11 +92,18 @@ router.get('/', (req: Request, res: Response) => {
   res.render('index', {
     title: 'Safe&Home',
     siteKey: process.env.site_key,
-    og: {
-      title: 'Safe&Home - Seguridad para tu hogar',
-      description: 'Protege tu hogar con nuestros servicios de vigilancia y tecnología.',
-      url: 'https://p2-31376531.onrender.com',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
+    meta: {
+      description: 'Protege tu hogar con nuestros servicios de vigilancia y tecnología avanzada.',
+      keywords: 'seguridad, hogar, alarmas, cámaras, vigilancia',
+      author: 'Safe&Home',
+      og: {
+        title: 'Safe&Home - Seguridad Integral para tu Hogar',
+        description: 'Sistemas de seguridad avanzados para proteger lo que más importa',
+        url: 'https://p2-31376531.onrender.com',
+        image: 'https://p2-31376531.onrender.com/images/camara2.jpg',
+        type: 'website',
+        site_name: 'Safe&Home'
+      },
     }
   });
 });
@@ -111,6 +120,7 @@ router.get('/payments', function (req: Request, res: Response) {
     }
 });
 });
+
 
 router.get('/login', function (req: Request, res: Response) {
   res.render('login', { title: 'Login de Administrador', og: {
@@ -235,7 +245,11 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-router.post('/contacto', async (req:any, res:any, next:NextFunction) => {
+router.post('/contacto', async (req:any, res:any, next:NextFunction) => { 
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+
     const recaptchaToken = req.body['g-recaptcha-response'];
     const secretKey = process.env.secret_key; 
     interface RecaptchaResponse {
