@@ -40,37 +40,6 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 
-
-
-
-router.get('/', (req: Request, res: Response) => {
-  res.render('index', {
-    title: 'Safe&Home',
-    siteKey: process.env.site_key,
-    og: {
-      title: 'Safe&Home - Seguridad para tu hogar',
-      description: 'Protege tu hogar con nuestros servicios de vigilancia y tecnología.',
-      url: 'https://p2-31376531.onrender.com',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
-    }
-  });
-});
-
-router.get('/payments', function (req: Request, res: Response) {
-  res.render('pagos', {
-    title: 'Compra del Servicio',
-    siteKey: process.env.site_key,
-    og: {
-      title: 'Safe&Home - Seguridad para tu hogar',
-      description: 'Solicita uno de nuestros servicios de seguridad y protección para tu hogar.',
-      url: 'https://p2-31376531.onrender.com/payments',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
-    }
-});
-});
-
-
-
 passport.serializeUser((user, done) => {
   done(null, user);
 });
@@ -105,6 +74,33 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+
+router.get('/', (req: Request, res: Response) => {
+  res.render('index', {
+    title: 'Safe&Home',
+    siteKey: process.env.site_key,
+    og: {
+      title: 'Safe&Home - Seguridad para tu hogar',
+      description: 'Protege tu hogar con nuestros servicios de vigilancia y tecnología.',
+      url: 'https://p2-31376531.onrender.com',
+      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
+    }
+  });
+});
+
+router.get('/payments', function (req: Request, res: Response) {
+  res.render('pagos', {
+    title: 'Compra del Servicio',
+    siteKey: process.env.site_key,
+    og: {
+      title: 'Safe&Home - Seguridad para tu hogar',
+      description: 'Solicita uno de nuestros servicios de seguridad y protección para tu hogar.',
+      url: 'https://p2-31376531.onrender.com/payments',
+      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
+    }
+});
+});
+
 router.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
@@ -128,7 +124,7 @@ router.get('/login', function (req: Request, res: Response) {
     }});
 })
 
-router.get('/adminMenu', isAuthenticated, (req, res) => {
+router.get('/adminMenu', (req, res) => {
     console.log('Sesión en /adminMenu:', req.session.user, req.user);
   res.render('adminMenu', { 
     title:'Menu de Administrador', 

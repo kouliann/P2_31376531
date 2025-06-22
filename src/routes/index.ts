@@ -40,7 +40,39 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((obj, done) => {
+  done(null, obj as any);
+});
 
+
+
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID!,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    callbackURL: process.env.GOOGLE_CALLBACK_URL!
+  },
+  function(accessToken, refreshToken, profile, done) {
+    const email = profile.emails && profile.emails[0] && profile.emails[0].value;
+    if (!email) {
+      return done(null, false, { message: 'No se pudo obtener el email de Google.' });
+    }
+    db.get('SELECT * FROM users WHERE email = ?', [email], (err, user) => {
+      if (err) return done(err);
+      if (!user) {
+        return done(null, false, { message: 'El email no está registrado.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 
 
 router.get('/', (req: Request, res: Response) => {
@@ -69,38 +101,6 @@ router.get('/payments', function (req: Request, res: Response) {
 });
 });
 
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID!,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL!
-  },
-  function(accessToken, refreshToken, profile, done) {
-    const email = profile.emails && profile.emails[0] && profile.emails[0].value;
-    if (!email) {
-      return done(null, false, { message: 'No se pudo obtener el email de Google.' });
-    }
-    db.get('SELECT * FROM users WHERE email = ?', [email], (err, user) => {
-      if (err) return done(err);
-      if (!user) {
-        return done(null, false, { message: 'El email no está registrado.' });
-      }
-      return done(null, user);
-    });
-  }
-));
-
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-passport.deserializeUser((obj, done) => {
-  done(null, obj as any);
-});
-
-
-router.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] })
-);
-
 router.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => {
@@ -121,12 +121,11 @@ router.get('/login', function (req: Request, res: Response) {
   res.render('login', { title: 'Login de Administrador', og: {
       title: 'Safe&Home - Seguridad para tu hogar',
       description: 'Inicio de sesión para administradores',
-      url: 'https://p2-31376531.onrender.com/login',
-      image: 'https://p2-31376531.onrender.com/images/camara2.jpg'
     }});
 })
 
 router.get('/adminMenu', isAuthenticated, (req, res) => {
+    console.log('Sesión en /adminMenu:', req.session.user, req.user);
   res.render('adminMenu', { 
     title:'Menu de Administrador', 
     user: req.user || req.session.user, og: {
@@ -360,11 +359,17 @@ router.post('/login', (req: any, res: Response) => {
 
 
     db.get('SELECT * FROM users WHERE email = ?', [email], (err, user: users | undefined) => {
+      try {
         if (err) return res.status(500).send('Error en la base de datos');
         if (!user || !user.password_hash) return res.status(401).send('Usuario o contraseña incorrectos');
         if (!bcrypt.compareSync(password, user.password_hash)) return res.status(401).send('Contraseña incorrecta');
         req.session.user = user;
+          console.log('Usuario guardado en sesión:', req.session.user);
         res.redirect('/adminMenu');
+      } catch (error) {
+        console.error('Error al autenticar al usuario:', error);
+        res.status(500).send('Error interno del servidor');
+      }
     });
 });
 
