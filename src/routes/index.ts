@@ -84,7 +84,7 @@ function isAuthenticated(req: any, res: Response, next: NextFunction) {
     return next();
   }
   res.redirect('/login');
-
+}
 
 router.get('/', (req: Request, res: Response) => {
   res.render('index', {
@@ -111,9 +111,6 @@ router.get('/payments', function (req: Request, res: Response) {
     }
 });
 });
-
-
-}
 
 router.get('/login', function (req: Request, res: Response) {
   res.render('login', { title: 'Login de Administrador', og: {
