@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Menu de Administración - Safe&Home
+    <title><%= t('title') %>
     </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="/stylesheets/querys.css">
@@ -16,26 +16,33 @@
         <nav>
             <img src="/images/logo.jpg" alt="logo">
             <ul>  
-                <li><a href="/">Inicio</a></li>
-                <li><a href="#ventajas">Nosotros</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="/"><%= t('home') %></a></li>
+                <li><a href="#ventajas"><%= t('advantages') %></a></li>
+                <li><a href="#servicios"><%= t('services') %></a></li>
+                <li><a href="#contacto"><%= t('contacts') %></a></li>
             </ul>
+
+            <form method="get" action="" style="display:inline;">
+                    <select name="lang" onchange="this.form.submit()">
+                        <option value="es" <%= lang === 'es' ? 'selected' : '' %>><%= t('spanish') %></option>
+                        <option value="en" <%= lang === 'en' ? 'selected' : '' %>><%= t('english') %></option>
+                    </select>
+            </form>
         </nav>
     </header>
     <body>
        
     <section class="menu">
-        <p>Bienvenido al panel de administración</p>
-        <a href="/admin/contacts"><button class="button">Contactos</button></a>
-        <a href="/admin/payments"><button class="button">Pagos</button></a>
-        <a href="/admin/users"><button class="button">Usuarios</button></a>
-        <a href="/logout"><button class="button">Salir</button></a>
+        <p><%= t('admin_menu') %></p>
+        <a href="/admin/contacts"><button class="button"><%= t('contacts') %></button></a>
+        <a href="/admin/payments"><button class="button"><%= t('payments') %></button></a>
+        <a href="/admin/users"><button class="button"><%= t('users') %></button></a>
+        <a href="/logout"><button class="button"><%= t('logout') %></button></a>
     </section>
     
     <footer>
         <img src="/images/logo.jpg" alt="logo">
-        <p>&copy; 2023 Safe&Home. Todos los derechos reservados.</p>
+        <p>&copy; <%= t('footer') %></p>
     </footer>
     </body>
 </html>

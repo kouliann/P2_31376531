@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%= title %></title>
+        <title><%= t(title) %></title>
         <link rel='stylesheet' href='/stylesheets/style.css' />
         <link rel="stylesheet" href="/stylesheets/querys.css">
         
         <!-- Etiquetas Open Graph -->
         <meta property="og:title" content="<%= og && og.title ? og.title : title %>">
         <meta property="og:description" content="<%= og && og.description ? og.description : '' %>">
+        
+        
+    
     </head>
     <body>
         <header>
@@ -16,12 +19,22 @@
             </nav>
             <nav>
                 <ul>  
-                    <li><a href="/">Inicio</a></li>
-                    <li><a href="#ventajas">Nosotros</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="/"><%= t('home') %></a></li>
+                    <li><a href="#ventajas"><%= t('advantages') %></a></li>
+                    <li><a href="#servicios"><%= t('services') %></a></li>
+                    <li><a href="#contacto"><%= t('contacts') %></a></li>
+                    
                 </ul>
+
+                <form method="get" action="" style="display:inline;">
+                    <select name="lang" onchange="this.form.submit()">
+                        <option value="es" <%= lang === 'es' ? 'selected' : '' %>><%= t('spanish') %></option>
+                        <option value="en" <%= lang === 'en' ? 'selected' : '' %>><%= t('english') %></option>
+                    </select>
+                </form>
             </nav>
+
+            
         </header> 
 
         <main class="login">
@@ -29,13 +42,13 @@
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required>
 
-                <label for="password">Contraseña:</label>
+                <label for="password"><%= t('password') %>:</label>
                 <input type="password" id="password" name="password" required>
 
-                <button type="submit">Iniciar Sesión</button>
+                <button type="submit"><%= t('login_button') %></button>
                 <a href="/auth/google" class="google-btn">
                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" alt="Google logo">
-                    Iniciar sesión con Google
+                    <%= t('session') %>
                 </a>
             <p id="errorMessage" class="error-message"></p>
             <p id="errorMessage" class="error-message"></p>
@@ -44,7 +57,7 @@
 
         <footer>
             <img src="images/logo.jpg" alt="logo">
-            <p>&copy; 2023 Safe&Home. Todos los derechos reservados.</p>
+            <p>&copy; <%= t('footer') %></p>
         </footer>
         <script src="../public/javascripts/login.js"></script>
     </body>

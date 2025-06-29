@@ -15,28 +15,35 @@
         <nav>
             <img src="/images/logo.jpg" alt="logo">
             <ul>  
-                <li><a href="/">Inicio</a></li>
-                <li><a href="#ventajas">Nosotros</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="/"><%= t('home') %></a></li>
+                <li><a href="#ventajas"><%= t('advantages') %></a></li>
+                <li><a href="#servicios"><%= t('services') %></a></li>
+                <li><a href="#contacto"><%= t('contacts') %></a></li>
+                
             </ul>
+            <form method="get" action="" style="display:inline;">
+                    <select name="lang" onchange="this.form.submit()">
+                        <option value="es" <%= lang === 'es' ? 'selected' : '' %>><%= t('spanish') %></option>
+                        <option value="en" <%= lang === 'en' ? 'selected' : '' %>><%= t('english') %></option>
+                    </select>
+            </form>
         </nav>
     </header>
     <body>
         <nav class="mainNav">
-      <h2>Pagos Recibidos</h2>
+      <h2><%= t('payments') %></h2>
 
     <% if (pagos && pagos.length > 0) { %>
         <table>
             <thead>
                 <tr class="tableHeader">
                     <th>ID</th>
-                    <th>Nombre</th>
+                    <th><%= t('name') %></th>
                     <th>Email</th>
-                    <th>Servicio</th>
-                    <th>monto</th>
-                    <th>moneda</th>
-                    <th>Fecha de Solicitud</th>
+                    <th><%= t('services') %></th>
+                    <th><%= t('amount') %></th>
+                    <th><%= t('currency') %></th>
+                    <th><%= t('date') %></th>
                 </tr>
             </thead>
             <input type="text" id="searchInput" placeholder="Buscar por Fechas o Servicios " style="margin-bottom:10px; width: 300px;">
@@ -55,12 +62,14 @@
             </tbody>
         </table>
     <% } else { %>
-        <p>No hay usuarios registrados en la base de datos.</p>
+        <p><%= t('noContacts') %>.</p>
     <% } %>
+
+    <a href="/adminMenu"><button class="button"><%= t('back') %></button></a>
     </nav>
     <footer>
         <img src="/images/logo.jpg" alt="logo">
-        <p>&copy; 2023 Safe&Home. Todos los derechos reservados.</p>
+        <p>&copy; <%= t('footer') %>.</p>
     </footer>
 
     <script>

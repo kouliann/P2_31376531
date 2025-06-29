@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title><%= t('title') %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="/stylesheets/querys.css">
     
@@ -30,42 +30,52 @@
         </nav>
         <nav>
             <ul>  
-                <li><a href="/">Inicio</a></li>
-                <li><a href="#ventajas">Nosotros</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="/"><%= t('home') %></a></li>
+                <li><a href="#ventajas"><%= t('advantages') %></a></li>
+                <li><a href="#servicios"><%= t('services') %></a></li>
+                <li><a href="#contacto"><%= t('contacts') %></a></li>
             </ul>
+            <form method="get" action="" style="display:inline;">
+                    <select name="lang" onchange="this.form.submit()">
+                        <option value="es" <%= lang === 'es' ? 'selected' : '' %>><%= t('spanish') %></option>
+                        <option value="en" <%= lang === 'en' ? 'selected' : '' %>><%= t('english') %></option>
+                    </select>
+            </form>
         </nav>
     </header>
 
     <nav class="mainNavForm"> 
         <form action="/payments" method="post" class="formulario mainForm">
-                    <h2>Formulario de pago</h2>
+                    <h2><%= t('paymentsForm') %></h2>
                     <div>
-                        <label class="formLabel">Datos del titular</label>
-                        <input id="nombre" type="text" name="nombre" placeholder="Nombre del titular" required>
-                        <label class="formLabel">Correo Electronico</label>
-                        <input id="email" type="email" name="email" placeholder="Email" required>
-                        <label class="formLabel">Numero de Telefono</label>
-                        <input id="telefono" type="tel" name="telefono" placeholder="Telefono" required>
-                        <label class="formLabel">Datos de la Tarjeta</label>
-                        <input id="tarjeta" type="number" name="tarjeta" minlength="10000000000000" maxlength="9999999999999999" placeholder="Numero de tarjeta" required> 
+                        <label class="formLabel"><%= t('name') %></label>
+                        <input id="nombre" type="text" name="nombre" required>
+                        <label class="formLabel">Email</label>
+                        <input id="email" type="email" name="email" required>
+                        <label class="formLabel"><%= t('phone') %></label>
+                        <input id="telefono" type="tel" name="telefono"  required>
+                        <label class="formLabel"><%= t('cardDetails') %></label>
+                        <input id="tarjeta" type="number" name="tarjeta" minlength="10000000000000" maxlength="9999999999999999" required> 
+                        <label class="formLabel"><%= t('expirationDate') %></label>
                         <div class="inputs">
-                            <input type="number" id="mes" name="mes" min="1" max="12" placeholder="Mes" required>
-                            <input type="number" id="ano" name="ano" min="2025" max="2035" placeholder="Año" required>
-                            <input id="cvv" type="number" name="cvv" minlength="3" max="999" placeholder="CVV" required>
+                            <label for="mes"><%= t('month') %></label>
+                            <input type="number" id="mes" name="mes" min="1" max="12"  required>
+                            <label for="mes"><%= t('year') %></label>
+                            <input type="number" id="ano" name="ano" min="2025" max="2035" required>
+                            <label for="cvv">CVV</label>
+                            <input id="cvv" type="number" name="cvv" minlength="3" max="999" required>
                         </div>
                         <select name="servicio" id="servicio" class="select">
-                            <option value="Alarmas para accidentes, desastres naturales y robos.">Alarmas para accidentes, desastres naturales y robos.</option>
-                            <option value="Camaras de seguridad con sensor de movimiento.">Camaras de seguridad con sensor de movimiento.</option>
+                            <option value="Alarmas para accidentes, desastres naturales y robos."><%= t('services1') %></option>
+                            <option value="Camaras de seguridad con sensor de movimiento."><%= t('services2') %></option>
                             
-                            <option value="Instalacion del servicio deseado y mantenimiento anual.">Instalacion del servicio deseado y mantenimiento anual.</option>
-                            <option value="Instalación del equipo y software para vigilancia 24/7 desde tu telefono celular">Instalación del equipo y software para vigilancia 24/7 desde tu telefono celular</option>
+                            <option value="Instalacion del servicio deseado y mantenimiento anual."><%= t('services3') %></option>
+                            <option value="Instalación del equipo y software para vigilancia 24/7 desde tu telefono celular"><%= t('services3') %></option>
                         
                         </select>
-                        <label class="formLabel">Monto</label>
+                        <label class="formLabel"><%= t('amount') %></label>
                         <input id="monto" type="number" name="monto" placeholder="Monto a pagar" required>
-                        <label class="formLabel">Moneda</label>
+                        <label class="formLabel"><%= t('currency') %></label>
                         <select name="moneda" id="moneda" class="select">
                             <option value="USD">USD</option>
                             <option value="VES">VES</option>
@@ -73,7 +83,7 @@
                         <div class="g-recaptcha" data-sitekey=<%= process.env.site_key %>></div>
                         
                         <br/>
-                        <button type="submit" id="enviar">Enviar</button>
+                        <button type="submit" id="enviar"><%= t('submit') %></button>
                     </div>
         </form>
 
