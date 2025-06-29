@@ -6,6 +6,11 @@ import nodemailer from 'nodemailer';
 import { v4 as uuidv4 } from 'uuid'
 import dotenv from 'dotenv';
 import  session from 'express-session';
+import fs from 'fs';
+import path from 'path';
+
+import cookieParser from 'cookie-parser';
+
 
 declare module 'express-session' {
   interface SessionData {
@@ -22,6 +27,10 @@ dotenv.config();
 /* GET home page. */
 
 let router: Router = express.Router();
+
+router.use(cookieParser());
+
+// Middleware para cargar traducciones según cookie o query
 
 router.use(session({
     secret: process.env.GOOGLE_CLIENT_SECRET!,
@@ -40,6 +49,26 @@ router.use(session({
 
 router.use(passport.initialize());
 router.use(passport.session());
+
+router.use((req:any, res, next) => {
+  let lang = req.cookies?.lang || req.session?.lang || 'es';
+  if (req.query.lang) {
+    lang = req.query.lang;
+    res.cookie('lang', lang, { maxAge: 900000, httpOnly: true });
+    req.session.lang = lang;
+  }
+  // Carga el archivo de idioma
+  const translationsPath = path.join(__dirname, '../../locales', `${lang}.json`);
+  let translations: { [key: string]: string } = {};
+  try {
+    translations = JSON.parse(fs.readFileSync(translationsPath, 'utf8'));
+  } catch (e) {
+    translations = {};
+  }
+  res.locals.t = (key: string) => translations[key] || key;
+  res.locals.lang = lang;
+  next();
+});
 
 
 passport.use(new GoogleStrategy({
@@ -92,6 +121,15 @@ router.get('/', (req: Request, res: Response) => {
   res.render('index', {
     title: 'Safe&Home',
     siteKey: process.env.site_key,
+
+
+
+
+
+
+
+
+
     meta: {
       description: 'Protege tu hogar con nuestros servicios de vigilancia y tecnología avanzada.',
       keywords: 'seguridad, hogar, alarmas, cámaras, vigilancia',
